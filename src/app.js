@@ -19,4 +19,12 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500).json({ message: err.message });
 });
 */
+
+//routes import 
+
+import userRouter from "./routes/user.routes.js"
+
+// routes declaration
+app.use("/api/v1/users", userRouter)
+
 export { app };
