@@ -1,5 +1,4 @@
 import { v2 as cloudinary } from "cloudinary";
-import { log } from "console";
 import fs from "fs";
 
 
@@ -23,7 +22,9 @@ const uploadOnCloudinary = async (localFilePath) => {
         return response;
 
     } catch (error) {
-        fs.unlinkSync(localFilePath) // remove the local saved file as upload opn has been failed
+        if (fs.existsSync(localFilePath)) {
+            fs.unlinkSync(localFilePath) // remove the local saved file as upload opn has been failed
+        }
         return null;
     }
 }
