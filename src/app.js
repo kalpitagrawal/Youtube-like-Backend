@@ -30,20 +30,22 @@ Passes it to error middleware (err, req, res, next)
         ↓
 Middleware sends the response to client */
 
-app.use((err, req, res, next) => {
-    const statusCode = err.statusCode || 500;
-    res.status(statusCode).json({
-        success: false,
-        message: err.message,
-        errors: err.errors
-    });
-});
+// app.use((err, req, res, next) => {
+//     const statusCode = err.statusCode || 500;
+//     res.status(statusCode).json({
+//         success: false,
+//         message: err.message,
+//         errors: err.errors
+//     });
+// });
 
 //routes import 
 
 import userRouter from "./routes/user.routes.js"
+import tweetRouter from "./routes/tweet.routes.js"
 
 // routes declaration
 app.use("/api/v1/users", userRouter)
+app.use("/api/v1/tweets", tweetRouter);
 
 export { app };
