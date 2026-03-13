@@ -11,7 +11,7 @@ const getVideoComments = asyncHandler(async (req, res) => {
     const { page = 1, limit = 10 } = req.query
 
     if (!isValidObjectId(videoId)) {
-        throw new ApiError(400,"Invalid video ID")
+        throw new ApiError(400, "Invalid video ID")
     }
 
     const video = await Video.findById(videoId)
@@ -19,7 +19,7 @@ const getVideoComments = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Video not found")
     }
 
-    const commentsAggregate = await Comment.aggregate([
+    const commentsAggregate = Comment.aggregate([
         {
             $match: {
                 video: new mongoose.Types.ObjectId(videoId)
@@ -65,9 +65,9 @@ const getVideoComments = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-    json(
-        new ApiResponse(200,comments,"Commnets fetched successfully")
-    )
+        .json(
+            new ApiResponse(200, comments, "Commnets fetched successfully")
+        )
 })
 
 const addComment = asyncHandler(async (req, res) => {

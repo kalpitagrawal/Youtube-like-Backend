@@ -94,13 +94,17 @@ const getChannelVideos = asyncHandler(async (req, res) => {
         { $sort: { createdAt: -1 } }
     ])
 
-    if (!videos?.length) {
-        throw new ApiError(404, "No videos found for this channel")
-    }
+    // if (!videos?.length) {
+    //     throw new ApiError(404, "No videos found for this channel")
+    // }
 
     return res
         .status(200)
-        .json(new ApiResponse(200, videos, "Channel videos fetched successfully"))
+        .json(
+            new ApiResponse(
+                200,
+                videos,
+                videos.length ? "Channel videos fetched successfully" : "No videos found for this channel"))
 })
 
 export {

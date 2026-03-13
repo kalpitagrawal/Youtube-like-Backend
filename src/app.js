@@ -30,14 +30,6 @@ Passes it to error middleware (err, req, res, next)
         ↓
 Middleware sends the response to client 
 
-app.use((err, req, res, next) => {
-    const statusCode = err.statusCode || 500;
-    res.status(statusCode).json({
-        success: false,
-        message: err.message,
-        errors: err.errors
-    });
-});
 */
 
 // routes import 
@@ -63,4 +55,13 @@ app.use("/api/v1/videos", videoRouter)
 app.use("/api/v1/playlist", playlistRouter)
 app.use("/api/v1/dashboard", dashboardRouter)
 
+// proper error response
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    res.status(statusCode).json({
+        success: false,
+        message: err.message,
+        errors: err.errors
+    });
+});
 export { app };
